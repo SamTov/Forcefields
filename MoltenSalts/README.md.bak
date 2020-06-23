@@ -1,0 +1,12 @@
+# Molten Salts Directory
+
+## NaCl
+
+This potential has been fit for molten NaCl at 1400K. The potential has been tested for temperatures 1074K to 1500K and performed well. It has onyl been fit to the liquid phase and only tested within this range. In the directory, you will also find some sample data which may be used as input configurations in the LAMMPS file. An example LAMMPS files has also been provided for reference.
+
+If you use this potential, please cite,
+```
+Tovey S, Narayanan Krishnamoorthy A, sivaraman g et al. DFT Accurate Interatomic Potential for Molten NaCl from Machine Learning. 2020. doi:10.26434/chemrxiv.12355160.v1
+```
+
+

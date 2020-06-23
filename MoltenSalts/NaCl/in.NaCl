@@ -1,0 +1,100 @@
+# NaCl example input file
+
+#############################
+### Configure system type ###
+#############################
+
+units           metal  # Must use metal units with the ML potential
+boundary        p p p
+atom_style      atomic
+
+################################
+### Define system parameters ###
+################################
+
+region          myRegion block 0.0 13.1 0.0 13.1 0.0 13.1 # Set size of the boz
+create_box      2 myRegion
+
+##############################################################
+### Read input file and assign types and elementary groups ###
+##############################################################
+
+read_dump       NaCl_example.xyz 0 x y z box no add yes format xyz  # Read dump from example configuration
+set		atom 1*32 type 1   # Set these groups in the case of a larger system
+set		atom 33*64 type 2
+mass            1  22.989
+mass            2  35.453
+group           Na type 1
+group           Cl type 2
+
+velocity       all create 1400 132465
+
+#######################################
+### Read a restart file if required ###
+#######################################
+
+#read_restart    NaCl_1.restart
+
+########################################
+### Define forcefield for simulation ###
+########################################
+
+pair_style      quip
+pair_coeff      * * Potential/SOAP.xml "Potential xml_label=GAP_2020_3_16_60_10_49_20_667" 11 17 # These number correspond to the atomic number of Na and Cl, the working directory should be changed if you move the potential
+
+####################
+### Set Timestep ###
+####################
+
+timestep        0.002
+
+###########################################
+### Define thermostat or other ensemble ###
+###########################################
+
+fix             myThermostat all nvt temp 1400.0 1400.0 $(50*dt)
+
+#################################
+### Compute system parameters ###
+#################################
+
+compute         myTemp all temp
+compute         myMSD_Na Na msd
+compute         myMSD_Cl Cl msd
+compute         myMSD all msd
+compute         myRDF all rdf 200 1 1 1 2 2 1 2 2 cutoff 5.0
+
+########################################
+### Calculate any vectors for output ###
+########################################
+
+fix             outRDF all ave/time 25 200 5000 c_myRDF[*] file rdf.NaCl_md mode vector
+
+##########################
+#### Define dump files ###
+##########################
+
+dump            myDump1 all custom 100 NaCl_Velocities.xyz id type element x y z vx vy vz fx fy fz
+dump_modify     myDump1 element Na Cl
+dump_modify     myDump1 sort id
+dump_modify     myDump1 append yes
+
+dump            myDump2 all xyz 100 NaCl_Trajectories.xyz
+dump_modify     myDump2 element Na Cl
+dump_modify     myDump2 append yes
+
+log             log.NaCl_1400K append
+
+################################
+### Define restart file dump ###
+################################
+
+restart		1000 NaCl_1.restart NaCl_2.restart
+
+#################################################################
+### Define thermo output for log dump and run the simulations ###
+#################################################################
+
+thermo          100
+thermo_style    custom step time temp density press c_myMSD[4] c_myMSD_Na[4] c_myMSD_Cl[4]
+run             5000000
