@@ -1,18 +1,29 @@
 # Forcefields
 LAMMPS compatible interatomic potentials
 
-In this repository you will find a number of potentials for different materials. These potentials work with the LAMMPS simulation package using the QUIP pair style command. They can also be used in the ASE simulation environment.
+In this repository you will find a number of potentials for different materials. These potentials work with the LAMMPS simulation package using the QUIP pair style command. They can also be used in the ASE simulation environment. It is important to read the README files found in each repository for information regarding citations as well as information about the fitting of the potential as well as the tested environments.
 
-In each directory corresponding to a material, you will find the .xml files corresponding to the potential, an example lammps input file which may be used, and an example initial configruation of whichever material the potential has been fit to. If you have any question or problems, please feel free to contact Samuel Tovey at:
+In each directory corresponding to a material, you will find the .xml files corresponding to the potential, an example LAMMPS input file which may be used, and an example initial configuration of whichever material the potential has been fit to. If you have any question or problems, please feel free to contact Samuel Tovey at:
 ```
 tovey.samuel@gmail.com
 ```
-or alteranatively,
+or alternatively,
 ```
 stovey@icp.uni-stuttgart.de
 ```
 
-What follows is a quikc summary of the families of materials which are found in this repository.
+To use the forcefields, it is easiest to clone the full repository by running
+
+```
+git clone https://github.com/SamTov/Forcefields.git
+```
+
+in your terminal, or in an IDE if you are working from windows. If you would only like individual files, you can open the file in github by clicking on it, upon which you will find a download button on the top right corner of one of the content boxes (The box will likely have the text, "View raw", followed by "Sorry about that, but we can't show files that are this big right now.", or, it will show the data in the file.
+What follows is a quick summary of the families of materials which are found in this repository.
 ## Molten Salts
 In this directory all of the forcefields for the molten salts will be added. Check the README in this directory for more information about using the potentials
 
+
+## Important Notes
+
+* LAMMPS will only function with the metal units when using ML potentials

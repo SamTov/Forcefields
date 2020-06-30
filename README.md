@@ -12,6 +12,13 @@ or alternatively,
 stovey@icp.uni-stuttgart.de
 ```
 
+To use the forcefields, it is easiest to clone the full repository by running
+
+```
+git clone https://github.com/SamTov/Forcefields.git
+```
+
+in your terminal, or in an IDE if you are working from windows. If you would only like individual files, you can open the file in GitHub by clicking on it, upon which you will find a download button on the top right corner of one of the content boxes (The box will likely have the text, "View raw", followed by "Sorry about that, but we can't show files that are this big right now.", or, it will show the data in the file.
 What follows is a quick summary of the families of materials which are found in this repository.
 ## Molten Salts
 In this directory all of the forcefields for the molten salts will be added. Check the README in this directory for more information about using the potentials
